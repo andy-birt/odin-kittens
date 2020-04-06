@@ -15,10 +15,10 @@ class KittensController < ApplicationController
   def create
     @kitten = Kitten.new(kitten_params)
     if @kitten.save
-      flash.success = 'Good Kitty!!'
+      flash[:success] = 'Good Kitty!!'
       redirect_to @kitten
     else
-      flash.error = 'Bad kitty!'
+      flash[:error] = 'Bad Kitty!'
       render 'new'
     end
   end
@@ -28,10 +28,21 @@ class KittensController < ApplicationController
   end
 
   def update
-    
+    @kitten = Kitten.find(params[:id])
+    if @kitten.update_attributes(kitten_params)
+      flash[:success] = 'Nice Kitty!!'
+      redirect_to @kitten
+    else
+      flash[:error] = 'Bad Kitty!!'
+      render 'edit'
+    end
   end
 
   def destroy
+    @kitten = Kitten.find(params[:id])
+    @kitten.destroy
+    flash[:success] = 'Kitty Go Bye Bye :('
+    redirect_to root_path
   end
 
   private

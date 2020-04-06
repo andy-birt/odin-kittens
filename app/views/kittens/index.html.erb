@@ -1,7 +1,21 @@
 <h1>Dem kitties tho</h1>
-<% @kittens.each do |kitten| %>
-  <%= kitten.name %>
-  <%= kitten.age %>
-  <%= kitten.cuteness %>
-  <%= kitten.softness %>
-<% end %>
+<table>
+  <tr>
+    <th>name</th>
+    <th>age</th>
+    <th>cuteness</th>
+    <th>softness</th>
+  </tr>
+  <tr>
+    <% @kittens.each do |kitten| %>
+      <td><%= kitten.name %></td>
+      <td><%= kitten.age %></td>
+      <td><%= kitten.cuteness %></td>
+      <td><%= kitten.softness %></td>
+      <td><%= link_to 'Show', kitten_path(kitten) %></td>
+      <td><%= link_to 'Edit', edit_kitten_path(kitten) %></td>
+      <td><%= link_to 'Delete', kitten_path(kitten), method: :delete, data: { confirm:  "are you sure?" } %></td>
+    <% end %>
+  </tr>
+</table>
+<%= link_to 'Add Kitten', new_kitten_path %>
